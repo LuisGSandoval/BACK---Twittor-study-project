@@ -10,7 +10,7 @@ import (
 func main() {
 
 	if db.ConnectionCheck() == 0 {
-		log.Fatal("Sin conexion a MongoDB")
+		log.Fatal("No connection to MongoDB")
 		return
 	}
 

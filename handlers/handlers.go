@@ -3,8 +3,8 @@ package handlers
 import (
 	"log"
 	"net/http"
-	"os"
 
+	"github.com/LuisGSandoval/twittor/config"
 	"github.com/LuisGSandoval/twittor/middleware"
 	"github.com/LuisGSandoval/twittor/routers"
 	"github.com/gorilla/mux"
@@ -15,15 +15,12 @@ import (
 func Manejadores() {
 	router := mux.NewRouter()
 
-	router.HandleFunc("/registro", middleware.ChequeoDB(routers.Registration)).Methods("POST")
-
-	PORT := os.Getenv("PORT")
-	if PORT == "" {
-		PORT = "5000"
-	}
+	// All routers can be found here
+	router.HandleFunc("/registration", middleware.DBCheck(routers.Registration)).Methods("POST")
 
 	handler := cors.AllowAll().Handler(router)
 
-	log.Fatal(http.ListenAndServe(":"+PORT, handler))
+	log.Println("Server running on port: ", config.PORT())
+	log.Fatal(http.ListenAndServe(":"+config.PORT(), handler))
 
 }

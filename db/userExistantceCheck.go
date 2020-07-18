@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/LuisGSandoval/twittor/config"
 	"github.com/LuisGSandoval/twittor/models"
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -15,21 +16,21 @@ func CheckIfUserExists(email string) (models.User, bool, string) {
 
 	defer cancel()
 
-	db := MongoCN.Database("twitter")
+	db := MongoCN.Database(config.BDONE())
 
-	col := db.Collection("usuarios")
+	col := db.Collection("users")
 
 	condition := bson.M{"email": email}
 
-	var resultado models.User
+	var result models.User
 
-	err := col.FindOne(ctx, condition).Decode(&resultado)
+	err := col.FindOne(ctx, condition).Decode(&result)
 
-	ID := resultado.ID.Hex()
+	ID := result.ID.Hex()
 	if err != nil {
-		return resultado, false, ID
+		return result, false, ID
 	}
 
-	return resultado, true, ID
+	return result, true, ID
 
 }

@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/LuisGSandoval/twittor/config"
 	"github.com/LuisGSandoval/twittor/models"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
@@ -14,9 +15,9 @@ func UserResgistration(u models.User) (string, bool, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	db := MongoCN.Database("twittor")
+	db := MongoCN.Database(config.BDONE())
 
-	col := db.Collection("usuarios")
+	col := db.Collection("users")
 
 	u.Password, _ = EncrypPassword(u.Password)
 

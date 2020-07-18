@@ -8,15 +8,15 @@ import (
 
 // User es el struct que me permite definir el modelo para usuarios
 type User struct {
-	ID              primitive.ObjectID `bson:"_id,omitempty" json:"id"`
-	Nombre          string             `bson:"nombre" json:"nombre,omitempty"`
-	Apellido        string             `bson:"apellido" json:"apellido,omitempty"`
-	FechaNacimiento time.Time          `bson:"fechaNacimiento" json:"fechaNacimiento,omitempty"`
-	Email           string             `bson:"email" json:"email"`
-	Password        string             `bson:"password" json:"password,omitempty"`
-	Avatar          string             `bson:"avatar" json:"avatar,omitempty"`
-	Banner          string             `bson:"banner" json:"banner,omitempty"`
-	Biographia      string             `bson:"bio" json:"bio,omitempty"`
-	Ubicacion       string             `bson:"ubicacion" json:"ubicacion,omitempty"`
-	SitioWeb        string             `bson:"sitioWeb" json:"sitioWeb,omitempty"`
+	ID        primitive.ObjectID `bson:"_id,omitempty" json:"id"`
+	Name      string             `bson:"name" json:"name,omitempty"`
+	Lastname  string             `bson:"lastname" json:"lastname,omitempty"`
+	BirthDate time.Time          `bson:"birthDate" json:"birthDate,omitempty"`
+	Email     string             `bson:"email" json:"email"`
+	Password  string             `bson:"password" json:"password,omitempty"`
+	Avatar    string             `bson:"avatar" json:"avatar,omitempty"`
+	Banner    string             `bson:"banner" json:"banner,omitempty"`
+	Biography string             `bson:"bio" json:"bio,omitempty"`
+	Location  string             `bson:"location" json:"location,omitempty"`
+	Website   string             `bson:"website" json:"website,omitempty"`
 }

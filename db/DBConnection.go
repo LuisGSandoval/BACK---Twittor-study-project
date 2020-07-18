@@ -4,16 +4,17 @@ import (
 	"context"
 	"log"
 
+	"github.com/LuisGSandoval/twittor/config"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// MongoCN is
-var MongoCN = conectarBD()
+// MongoCN is the connection to mongoDB
+var MongoCN = connectBD()
 
-var clientOptions = options.Client().ApplyURI("mongodb+srv://tuitor-app:1234@twittor-ver-1-baruh.mongodb.net/test?retryWrites=true&w=majority")
+var clientOptions = options.Client().ApplyURI(config.MONGODBCXSTRING())
 
-func conectarBD() *mongo.Client {
+func connectBD() *mongo.Client {
 
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 
@@ -30,12 +31,12 @@ func conectarBD() *mongo.Client {
 		return client
 	}
 
-	log.Println("MongoDB exitosamente conectado")
+	log.Println("MongoDB connected succesfully")
 
 	return client
 }
 
-// ConnectionCheck is
+// ConnectionCheck is a test done to the database to make sure it's working as expected
 func ConnectionCheck() int {
 	err := MongoCN.Ping(context.TODO(), nil)
 	if err != nil {
