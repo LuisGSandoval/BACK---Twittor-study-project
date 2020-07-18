@@ -1,7 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"log"
+
+	"github.com/LuisGSandoval/twittor/db"
+	"github.com/LuisGSandoval/twittor/handlers"
+)
 
 func main() {
-	fmt.Println("Hello, world")
+
+	if db.ConnectionCheck() == 0 {
+		log.Fatal("Sin conexion a MongoDB")
+		return
+	}
+
+	handlers.Manejadores()
 }
