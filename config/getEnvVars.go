@@ -29,3 +29,12 @@ func BDONE() string {
 	}
 	return BDONE
 }
+
+// JWTSECRET brings the db name selected from the environment variables
+func JWTSECRET() string {
+	var JWTSECRET string = os.Getenv("JWTSECRET")
+	if JWTSECRET == "" {
+		JWTSECRET = "not the actual encryption key"
+	}
+	return JWTSECRET
+}

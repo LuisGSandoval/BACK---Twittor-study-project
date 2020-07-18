@@ -9,8 +9,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-// CheckIfUserExists checks if the user already exists to avoid duplicity
-func CheckIfUserExists(email string) (models.User, bool, string) {
+// UserExistanceCheck checks if the user already exists to avoid duplicity
+func UserExistanceCheck(email string) (models.User, bool, string) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 

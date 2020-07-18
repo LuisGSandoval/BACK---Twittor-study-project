@@ -9,7 +9,7 @@ import (
 	"github.com/LuisGSandoval/twittor/models"
 )
 
-// Registration es la ruta que regstra un usuario en la base de datos
+// Registration is the function that registers new users
 func Registration(w http.ResponseWriter, r *http.Request) {
 
 	var t models.User
@@ -34,10 +34,10 @@ func Registration(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// checking previous to saving
-	_, encontrado, _ := db.CheckIfUserExists(t.Email)
+	// checking before saving
+	_, found, _ := db.UserExistanceCheck(t.Email)
 
-	if encontrado == true {
+	if found == true {
 		http.Error(w, "This user already exists", http.StatusBadRequest)
 		return
 	}

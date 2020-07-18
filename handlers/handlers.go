@@ -16,8 +16,14 @@ func Manejadores() {
 	router := mux.NewRouter()
 
 	// All routers can be found here
-	router.HandleFunc("/registration", middleware.DBCheck(routers.Registration)).Methods("POST")
+	// Public
+	router.HandleFunc("/api/registration", middleware.DBCheck(routers.Registration)).Methods("POST")
+	router.HandleFunc("/api/login", middleware.DBCheck(routers.Login)).Methods("POST")
 
+	// private
+	router.HandleFunc("/api/profile", middleware.DBCheck(middleware.ValidateJWT(routers.Login))).Methods("GET")
+
+	// CORS config
 	handler := cors.AllowAll().Handler(router)
 
 	log.Println("Server running on port: ", config.PORT())
