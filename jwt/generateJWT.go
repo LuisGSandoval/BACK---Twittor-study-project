@@ -34,7 +34,7 @@ func GenerateJWT(t models.User) (string, error) {
 		return "", err
 	}
 
-	// tokenStr = "Bearer " + tokenStr
+	tokenStr = "Bearer " + tokenStr
 
 	return tokenStr, nil
 }

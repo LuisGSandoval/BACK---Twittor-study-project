@@ -21,7 +21,7 @@ func Manejadores() {
 	router.HandleFunc("/api/login", middleware.DBCheck(routers.Login)).Methods("POST")
 
 	// private
-	router.HandleFunc("/api/profile", middleware.DBCheck(middleware.ValidateJWT(routers.Login))).Methods("GET")
+	router.HandleFunc("/api/profile", middleware.DBCheck(middleware.ValidateJWT(routers.FindProfile))).Methods("GET")
 
 	// CORS config
 	handler := cors.AllowAll().Handler(router)

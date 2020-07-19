@@ -9,7 +9,9 @@ import (
 // ValidateJWT validates the JWT and the user already has it
 func ValidateJWT(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		_, _, _, err := routers.ProcessToken(r.Header.Get("Authorization"))
+
+		token := r.Header.Get("Authorization")
+		_, _, _, err := routers.ProcessToken(token)
 
 		if err != nil {
 			http.Error(w, "Token error: "+err.Error(), http.StatusBadRequest)

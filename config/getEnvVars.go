@@ -11,7 +11,7 @@ type C struct {
 	MONGODBCXSTRING string `envName:"MONGODBCXSTRING" default:"mongodb://localhost:27017"`
 	DBONE           string `envName:"DBONE" default:"twittor"`
 	USRCOL          string `envName:"USRCOL" default:"users"`
-	JWTSECRET       string `envName:"JWTSECRET" default:"not the actual encryption key"`
+	JWTSECRET       string `envName:"JWTSECRET" default:"unbelieveable-how-this-thing-works"`
 }
 
 // Get environment variables or the default value

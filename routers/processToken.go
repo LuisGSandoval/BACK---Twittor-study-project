@@ -18,21 +18,19 @@ var UserID string
 
 // ProcessToken extracts the values in the token
 func ProcessToken(tk string) (*models.Claim, bool, string, error) {
-
-	secret := config.Get("JWTSECRET")
-	secretByte := []byte(secret)
+	secret := []byte(config.Get("JWTSECRET"))
 	claims := &models.Claim{}
 
-	// splitToken := strings.Split(tk, " ")
+	splitToken := strings.Split(tk, " ")
 
-	// if len(splitToken) != 2 {
-	// 	return claims, false, "", errors.New("invalid format token")
-	// }
+	if len(splitToken) != 2 {
+		return claims, false, "", errors.New("invalid format token")
+	}
 
-	tk = strings.TrimSpace(tk) // token without the bearer word
+	tk = strings.TrimSpace(splitToken[1]) // token without the bearer word
 
 	jwtkn, err := jwt.ParseWithClaims(tk, claims, func(token *jwt.Token) (interface{}, error) {
-		return secretByte, nil
+		return secret, nil
 	})
 
 	if err != nil {
