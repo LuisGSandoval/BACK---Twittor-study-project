@@ -11,15 +11,18 @@ import (
 // GenerateJWT generates a jwt token with a payload assigned to it
 func GenerateJWT(t models.User) (string, error) {
 
-	secret := []byte(config.JWTSECRET())
+	JWTSECRET := config.Get("JWTSECRET")
+	secret := []byte(JWTSECRET)
 
 	payload := jwt.MapClaims{
-		"_id":      t.ID.Hex(),
-		"email":    t.Email,
-		"name":     t.Name,
-		"lastname": t.Lastname,
-		"bio":      t.Biography,
-		"website":  t.Website,
+		"_id":       t.ID.Hex(),
+		"email":     t.Email,
+		"name":      t.Name,
+		"lastname":  t.Lastname,
+		"bio":       t.Biography,
+		"website":   t.Website,
+		"birthDate": t.BirthDate,
+		"location":  t.Location,
 
 		"exp": time.Now().Add(24 * time.Hour).Unix(),
 	}
@@ -31,7 +34,7 @@ func GenerateJWT(t models.User) (string, error) {
 		return "", err
 	}
 
-	tokenStr = "Bearer " + tokenStr
+	// tokenStr = "Bearer " + tokenStr
 
 	return tokenStr, nil
 }

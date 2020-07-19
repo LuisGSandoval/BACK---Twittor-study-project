@@ -15,9 +15,9 @@ func UserResgistration(u models.User) (string, bool, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	db := MongoCN.Database(config.BDONE())
+	db := MongoCN.Database(config.Get("DBONE"))
 
-	col := db.Collection("users")
+	col := db.Collection(config.Get("USRCOL"))
 
 	u.Password, _ = EncrypPassword(u.Password)
 

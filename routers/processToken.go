@@ -7,7 +7,7 @@ import (
 	"github.com/LuisGSandoval/twittor/config"
 	"github.com/LuisGSandoval/twittor/db"
 	"github.com/LuisGSandoval/twittor/models"
-	"github.com/dgrijalva/jwt-go"
+	jwt "github.com/dgrijalva/jwt-go"
 )
 
 // Email is the user's email returned from the request to the data base
@@ -19,19 +19,20 @@ var UserID string
 // ProcessToken extracts the values in the token
 func ProcessToken(tk string) (*models.Claim, bool, string, error) {
 
-	secret := config.JWTSECRET()
+	secret := config.Get("JWTSECRET")
+	secretByte := []byte(secret)
 	claims := &models.Claim{}
 
-	splitToken := strings.Split(tk, " ")
+	// splitToken := strings.Split(tk, " ")
 
-	if len(splitToken) != 2 {
-		return claims, false, "", errors.New("invalid format token")
-	}
+	// if len(splitToken) != 2 {
+	// 	return claims, false, "", errors.New("invalid format token")
+	// }
 
-	tk = strings.TrimSpace(splitToken[1]) // token without the bearer word
+	tk = strings.TrimSpace(tk) // token without the bearer word
 
 	jwtkn, err := jwt.ParseWithClaims(tk, claims, func(token *jwt.Token) (interface{}, error) {
-		return secret, nil
+		return secretByte, nil
 	})
 
 	if err != nil {

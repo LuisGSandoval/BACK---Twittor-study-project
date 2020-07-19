@@ -12,7 +12,9 @@ import (
 // MongoCN is the connection to mongoDB
 var MongoCN = connectBD()
 
-var clientOptions = options.Client().ApplyURI(config.MONGODBCXSTRING())
+var conectxString = config.Get("MONGODBCXSTRING")
+
+var clientOptions = options.Client().ApplyURI(conectxString)
 
 func connectBD() *mongo.Client {
 

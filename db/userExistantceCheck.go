@@ -16,9 +16,13 @@ func UserExistanceCheck(email string) (models.User, bool, string) {
 
 	defer cancel()
 
-	db := MongoCN.Database(config.BDONE())
+	var (
+		DBONE  = config.Get("DBONE")
+		USRCOL = config.Get("USRCOL")
+	)
+	db := MongoCN.Database(DBONE)
 
-	col := db.Collection("users")
+	col := db.Collection(USRCOL)
 
 	condition := bson.M{"email": email}
 

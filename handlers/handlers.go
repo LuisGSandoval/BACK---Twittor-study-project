@@ -26,7 +26,7 @@ func Manejadores() {
 	// CORS config
 	handler := cors.AllowAll().Handler(router)
 
-	log.Println("Server running on port: ", config.PORT())
-	log.Fatal(http.ListenAndServe(":"+config.PORT(), handler))
+	log.Println("Server running on port: ", config.Get("PORT"))
+	log.Fatal(http.ListenAndServe(":"+config.Get("PORT"), handler))
 
 }

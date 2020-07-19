@@ -1,40 +1,31 @@
 package config
 
-import "os"
+import (
+	"os"
+	"reflect"
+)
 
-// MONGODBCXSTRING brings the string that is stored in the env variables
-func MONGODBCXSTRING() string {
-
-	var MONGODBCXSTRING string = os.Getenv("MONGODBCXSTRING")
-	if MONGODBCXSTRING == "" {
-		MONGODBCXSTRING = "mongodb://localhost:27017"
-	}
-	return MONGODBCXSTRING
+// C stands for config where the env variables are going to b stored
+type C struct {
+	PORT            string `envName:"PORT" default:"8088"`
+	MONGODBCXSTRING string `envName:"MONGODBCXSTRING" default:"mongodb://localhost:27017"`
+	DBONE           string `envName:"DBONE" default:"twittor"`
+	USRCOL          string `envName:"USRCOL" default:"users"`
+	JWTSECRET       string `envName:"JWTSECRET" default:"not the actual encryption key"`
 }
 
-// PORT brings the PORT that is stored in the env variables
-func PORT() string {
-	var PORT string = os.Getenv("PORT")
-	if PORT == "" {
-		PORT = "8088"
-	}
-	return PORT
-}
+// Get environment variables or the default value
+func Get(fld string) string {
+	confg := reflect.TypeOf(C{})
+	f, _ := confg.FieldByName(fld)
+	v, _ := f.Tag.Lookup("envName")
+	dv, _ := f.Tag.Lookup("default")
+	envValue := os.Getenv(v)
 
-// BDONE brings the db name selected from the environment variables
-func BDONE() string {
-	var BDONE string = os.Getenv("BDONE")
-	if BDONE == "" {
-		BDONE = "twittor"
+	if envValue == "" {
+		return dv
 	}
-	return BDONE
-}
 
-// JWTSECRET brings the db name selected from the environment variables
-func JWTSECRET() string {
-	var JWTSECRET string = os.Getenv("JWTSECRET")
-	if JWTSECRET == "" {
-		JWTSECRET = "not the actual encryption key"
-	}
-	return JWTSECRET
+	return envValue
+
 }
